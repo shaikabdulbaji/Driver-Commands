@@ -1,0 +1,71 @@
+package b69switchTo;
+
+import java.util.Iterator;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Demo {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+
+		driver.get("http://omayo.blogspot.com/");
+
+		// switchTo alert
+//		driver.findElement(By.id("alert1")).click();
+//
+//		Alert alert = driver.switchTo().alert();
+//
+//		System.out.println(alert.getText());
+//		
+//		alert.accept();
+//		
+//		Thread.sleep(2000);
+
+		// switchTo frame
+//		driver.switchTo().frame("iframe2");
+//
+//		driver.findElement(By.linkText("Chapter3")).click();
+
+		// Write code here
+		String firstWindow = driver.getWindowHandle();
+
+		driver.findElement(By.linkText("Open a popup window")).click();
+
+		Thread.sleep(3000);
+
+		Set<String> windows = driver.getWindowHandles();
+
+		Iterator<String> itr = windows.iterator();
+
+		while (itr.hasNext()) {
+
+			String window = itr.next();
+
+			driver.switchTo().window(window);
+
+			if (driver.getTitle().equals("Basic Web Page Title")) {
+				driver.close();
+			}
+
+		}
+
+		Thread.sleep(3000);
+
+		driver.switchTo().window(firstWindow);
+
+		driver.findElement(By.name("q")).sendKeys("Arun");
+
+		driver.quit();
+
+	}
+
+}

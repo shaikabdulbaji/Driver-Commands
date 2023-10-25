@@ -1,0 +1,27 @@
+package b26navigate;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Demo {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver = new ChromeDriver();
+
+		driver.manage().window().maximize();
+
+		driver.get("http://compendiumdev.co.uk/selenium/basic_web_page.html");
+        
+        //Write code here
+       String pageSource = driver.getPageSource();
+       System.out.println(pageSource);
+
+		driver.quit();
+
+	}
+
+}
